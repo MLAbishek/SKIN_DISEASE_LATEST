@@ -1,6 +1,7 @@
 Flask==2.3.3
-Werkzeug==2.3.7
-tensorflow==2.12.0
-numpy==1.24.3
 Pillow==10.0.0
+tensorflow==2.12.0
+numpy>=1.22,<1.24
+opencv-python-headless==4.8.1.78
+gunicorn==21.2.0
 watchdog==3.0.0
