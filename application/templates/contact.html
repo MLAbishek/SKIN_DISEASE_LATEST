@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us - SkinCare AI{% endblock %}
+
+{% block content %}
+<section class="contact-hero">
+    <div class="container">
+        <div class="contact-header">
+            <h1>Contact Us</h1>
+            <p>Get in touch with our team for support, partnerships, or any questions</p>
+        </div>
+    </div>
+</section>
+
+<section class="contact-main">
+    <div class="container">
+        <div class="contact-grid">
+            <div class="contact-form-section">
+                <div class="section-card">
+                    <h2>Send us a Message</h2>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Select a subject</option>
+                                <option value="general">General Inquiry</option>
+                                <option value="support">Technical Support</option>
+                                <option value="partnership">Partnership</option>
+                                <option value="enterprise">Enterprise Solutions</option>
+                                <option value="feedback">Feedback</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" rows="6" required
+                                placeholder="Tell us how we can help you..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="contact-info-section">
+                <div class="contact-info-card">
+                    <h3>Get in Touch</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>info@skincare-ai.com</p>
+                            <p>support@skincare-ai.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div class="contact-details">
+                            <h4>Phone</h4>
+                            <p>+1 (555) 123-4567</p>
+                            <p>Mon-Fri: 9AM-6PM EST</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-details">
+                            <h4>Address</h4>
+                            <p>123 AI Healthcare Blvd</p>
+                            <p>San Francisco, CA 94105</p>
+                            <p>United States</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-info-card">
+                    <h3>Quick Links</h3>
+                    <ul class="quick-links">
+                        <li><a href="{{ url_for('faq') }}">Frequently Asked Questions</a></li>
+                        <li><a href="{{ url_for('about') }}">About Our Company</a></li>
+                        <li><a href="{{ url_for('services') }}">Our Services</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="faq-preview">
+    <div class="container">
+        <div class="section-header">
+            <h2>Frequently Asked Questions</h2>
+            <p>Find quick answers to common questions</p>
+        </div>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h3>How accurate is the AI analysis?</h3>
+                <p>Our AI achieves 99% accuracy in skin cancer detection, comparable to professional dermatologists.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Is my data secure?</h3>
+                <p>Yes, we use enterprise-grade encryption and never store your images permanently.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Can I use this instead of seeing a doctor?</h3>
+                <p>No, this tool is for screening only. Always consult a dermatologist for proper diagnosis.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What image formats are supported?</h3>
+                <p>We support JPG, PNG, and JPEG formats up to 10MB in size.</p>
+            </div>
+        </div>
+        <div class="faq-cta">
+            <a href="{{ url_for('faq') }}" class="btn btn-secondary">View All FAQs</a>
+        </div>
+    </div>
+</section>
+
+<section class="support-section">
+    <div class="container">
+        <div class="support-content">
+            <h2>Need Immediate Help?</h2>
+            <p>Our support team is here to help you with any questions or technical issues.</p>
+            <div class="support-options">
+                <a href="#" class="support-option">
+                    <div class="support-icon">💬</div>
+                    <h3>Live Chat</h3>
+                    <p>Chat with our support team</p>
+                </a>
+                <a href="#" class="support-option">
+                    <div class="support-icon">📞</div>
+                    <h3>Phone Support</h3>
+                    <p>Call us directly</p>
+                </a>
+                <a href="#" class="support-option">
+                    <div class="support-icon">📧</div>
+                    <h3>Email Support</h3>
+                    <p>Send us an email</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/contact.js') }}"></script>
+{% endblock %}

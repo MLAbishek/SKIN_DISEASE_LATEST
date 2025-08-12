@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+
+{% block title %}FAQ - SkinCare AI{% endblock %}
+
+{% block content %}
+<section class="faq-hero">
+    <div class="container">
+        <div class="faq-header">
+            <h1>Frequently Asked Questions</h1>
+            <p>Find answers to common questions about our AI-powered skin analysis service</p>
+        </div>
+    </div>
+</section>
+
+<section class="faq-main">
+    <div class="container">
+        <div class="faq-categories">
+            <button class="category-btn active" data-category="general">General</button>
+            <button class="category-btn" data-category="technical">Technical</button>
+            <button class="category-btn" data-category="medical">Medical</button>
+            <button class="category-btn" data-category="privacy">Privacy & Security</button>
+        </div>
+
+        <div class="faq-content">
+            <!-- General Questions -->
+            <div class="faq-category active" id="general">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What is SkinCare AI?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>SkinCare AI is an advanced artificial intelligence platform that analyzes skin images to
+                            detect potential skin cancer and other skin conditions. Our technology uses deep learning
+                            algorithms trained on extensive medical datasets to provide accurate, instant analysis.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How does the analysis work?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Simply upload a photo of the skin area you want to analyze, and our AI will process the image
+                            using advanced computer vision algorithms. The system examines various characteristics
+                            including asymmetry, border irregularity, color variation, and size to provide a
+                            comprehensive analysis.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What types of skin conditions can you detect?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our AI is primarily trained to detect potential skin cancer indicators, including melanoma,
+                            basal cell carcinoma, and squamous cell carcinoma. The system can identify suspicious moles,
+                            lesions, and other skin abnormalities that may require medical attention.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Is the service free to use?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer a free tier that allows 5 analyses per month. For unlimited access and additional
+                            features, we offer Pro and Enterprise plans. Check our Services page for detailed pricing
+                            information.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Questions -->
+            <div class="faq-category" id="technical">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What image formats are supported?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We support JPG, JPEG, and PNG image formats. Images should be clear, well-lit, and show the
+                            skin area clearly. Maximum file size is 10MB.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How long does the analysis take?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Analysis typically takes 10-30 seconds depending on image size and server load. Pro users get
+                            priority processing for faster results.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Can I use the camera on my device?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! Our platform supports both file upload and direct camera capture. Simply click "Start
+                            Camera" and take a photo directly through your device's camera for instant analysis.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What devices are supported?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our web platform works on all modern browsers including Chrome, Firefox, Safari, and Edge. We
+                            also support mobile devices through responsive design. A mobile app is coming soon.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medical Questions -->
+            <div class="faq-category" id="medical">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How accurate is the AI analysis?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our AI achieves 99% accuracy in skin cancer detection, comparable to professional
+                            dermatologists. However, this tool is for screening purposes only and should not replace
+                            professional medical evaluation.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Can I use this instead of seeing a dermatologist?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No, this tool is designed for screening and early detection only. It should not replace
+                            professional medical advice, diagnosis, or treatment. Always consult a qualified
+                            dermatologist for proper evaluation.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What should I do if the AI detects a potential issue?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>If our AI flags a potential issue, we recommend scheduling an appointment with a
+                            dermatologist for professional evaluation. Early detection is crucial for successful
+                            treatment outcomes.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How often should I check my skin?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We recommend monthly self-examinations and annual professional skin checks. If you have a
+                            family history of skin cancer or many moles, more frequent monitoring may be advised by your
+                            dermatologist.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Privacy & Security Questions -->
+            <div class="faq-category" id="privacy">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Is my data secure?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we use enterprise-grade encryption and security measures to protect your data. Images
+                            are processed securely and are not permanently stored on our servers.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Do you store my images?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No, we do not permanently store your images. Images are processed for analysis and then
+                            automatically deleted. We only retain anonymous, aggregated data for improving our AI
+                            algorithms.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Is my health information private?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely. We follow HIPAA guidelines and never share your personal health information with
+                            third parties. Your privacy is our top priority.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Can I delete my account and data?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, you can request account deletion at any time. We will permanently remove all your
+                            personal data from our systems within 30 days of your request.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="faq-cta">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Still Have Questions?</h2>
+            <p>Our support team is here to help you with any additional questions or concerns.</p>
+            <div class="cta-buttons">
+                <a href="{{ url_for('contact') }}" class="btn btn-primary">Contact Support</a>
+                <a href="{{ url_for('detection') }}" class="btn btn-secondary">Try Analysis</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/faq.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Cancer Detection</title>
+    <link rel="stylesheet" href="../static/css/index.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🔬 Skin Cancer Detection</h1>
+            <p>Upload an image or take a photo to analyze your skin</p>
+        </header>
+
+        <main>
+            <div class="upload-section">
+                <h2>📁 Upload Image</h2>
+                <div class="upload-area" id="uploadArea">
+                    <input type="file" id="fileInput" accept="image/*" hidden>
+                    <div class="upload-content">
+                        <div class="upload-icon">📷</div>
+                        <p>Click to upload or drag and drop</p>
+                        <span>PNG, JPG, JPEG up to 10MB</span>
+                    </div>
+                </div>
+                <button id="uploadBtn" class="btn btn-primary">Choose File</button>
+            </div>
+
+            <div class="divider">
+                <span>OR</span>
+            </div>
+
+            <div class="camera-section">
+                <h2>📸 Take Photo</h2>
+                <div class="camera-container">
+                    <video id="video" autoplay muted></video>
+                    <canvas id="canvas" hidden></canvas>
+                </div>
+                <div class="camera-controls">
+                    <button id="startCamera" class="btn btn-secondary">Start Camera</button>
+                    <button id="captureBtn" class="btn btn-primary" disabled>Capture Photo</button>
+                    <button id="stopCamera" class="btn btn-secondary" disabled>Stop Camera</button>
+                </div>
+            </div>
+
+            <div class="preview-section" id="previewSection" style="display: none;">
+                <h2>🖼️ Preview</h2>
+                <div class="image-preview">
+                    <img id="previewImage" alt="Preview">
+                </div>
+                <button id="analyzeBtn" class="btn btn-success">Analyze Image</button>
+            </div>
+
+            <div class="results-section" id="resultsSection" style="display: none;">
+                <h2>📊 Results</h2>
+                <div class="result-card">
+                    <div class="result-content">
+                        <div class="diagnosis" id="diagnosis"></div>
+                        <div class="confidence" id="confidence"></div>
+                        <div class="disclaimer">
+                            ⚠️ <strong>Disclaimer:</strong> This is an AI-based analysis and should not replace
+                            professional medical advice. Please consult a dermatologist for proper diagnosis.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="loading" id="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Analyzing image...</p>
+            </div>
+        </main>
+    </div>
+
+    <script src="../static/js/index.js"></script>
+</body>
+
+</html>

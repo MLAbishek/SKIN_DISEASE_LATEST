@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}About Us - SkinCare AI{% endblock %}
+
+{% block content %}
+<section class="about-hero">
+    <div class="container">
+        <div class="about-header">
+            <h1>About SkinCare AI</h1>
+            <p>Revolutionizing skin health through advanced artificial intelligence</p>
+        </div>
+    </div>
+</section>
+
+<section class="mission-section">
+    <div class="container">
+        <div class="mission-content">
+            <div class="mission-text">
+                <h2>Our Mission</h2>
+                <p>
+                    At SkinCare AI, we believe that early detection saves lives. Our mission is to democratize access to
+                    professional-grade skin analysis by leveraging cutting-edge artificial intelligence technology.
+                    We're
+                    committed to providing accurate, accessible, and affordable skin health screening to everyone.
+                </p>
+                <p>
+                    By combining deep learning algorithms with extensive medical datasets, we've created a platform that
+                    can detect potential skin issues with remarkable accuracy, helping users take proactive steps toward
+                    their health and well-being.
+                </p>
+            </div>
+            <div class="mission-stats">
+                <div class="stat-item">
+                    <div class="stat-number">99%</div>
+                    <div class="stat-label">Accuracy Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50K+</div>
+                    <div class="stat-label">Analyses Performed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">30s</div>
+                    <div class="stat-label">Average Response Time</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="technology-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Our Technology</h2>
+            <p>State-of-the-art AI powered by extensive research and development</p>
+        </div>
+        <div class="tech-grid">
+            <div class="tech-card">
+                <div class="tech-icon">🧠</div>
+                <h3>Deep Learning</h3>
+                <p>Advanced neural networks trained on millions of skin images to recognize patterns and anomalies with
+                    exceptional accuracy.</p>
+            </div>
+            <div class="tech-card">
+                <div class="tech-icon">📊</div>
+                <h3>Medical Datasets</h3>
+                <p>Our AI is trained on comprehensive medical datasets, ensuring reliable and clinically relevant
+                    results.</p>
+            </div>
+            <div class="tech-card">
+                <div class="tech-icon">🔬</div>
+                <h3>Computer Vision</h3>
+                <p>Sophisticated image processing algorithms that analyze skin characteristics with precision.</p>
+            </div>
+            <div class="tech-card">
+                <div class="tech-icon">⚡</div>
+                <h3>Real-time Processing</h3>
+                <p>Optimized algorithms that deliver results in seconds without compromising accuracy.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="values-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Our Values</h2>
+            <p>The principles that guide everything we do</p>
+        </div>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">🎯</div>
+                <h3>Accuracy</h3>
+                <p>We prioritize precision and reliability in every analysis, ensuring users can trust our results.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">🔒</div>
+                <h3>Privacy</h3>
+                <p>Your health data is sacred. We implement the highest security standards to protect your information.
+                </p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">🌍</div>
+                <h3>Accessibility</h3>
+                <p>We believe quality healthcare should be available to everyone, regardless of location or resources.
+                </p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">💡</div>
+                <h3>Innovation</h3>
+                <p>We continuously push the boundaries of what's possible in AI-powered healthcare.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Join Us in Revolutionizing Skin Health</h2>
+            <p>Experience the future of skin analysis with our advanced AI technology.</p>
+            <a href="{{ url_for('detection') }}" class="btn btn-primary btn-large">
+                Try Our Analysis
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

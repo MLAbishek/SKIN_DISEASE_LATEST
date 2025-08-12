@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block title %}SkinCare AI - Advanced Skin Analysis & Detection{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Advanced <span class="highlight">AI-Powered</span> Skin Analysis
+            </h1>
+            <p class="hero-subtitle">
+                Professional-grade skin cancer detection using cutting-edge artificial intelligence.
+                Get instant analysis and early detection for better health outcomes.
+            </p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('detection') }}" class="btn btn-primary btn-large">
+                    Start Analysis
+                </a>
+                <a href="{{ url_for('about') }}" class="btn btn-secondary btn-large">
+                    Learn More
+                </a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="hero-image">
+                <div class="floating-card card-1">
+                    <span class="card-icon">🔬</span>
+                    <span class="card-text">AI Analysis</span>
+                </div>
+                <div class="floating-card card-2">
+                    <span class="card-icon">📱</span>
+                    <span class="card-text">Instant Results</span>
+                </div>
+                <div class="floating-card card-3">
+                    <span class="card-icon">🛡️</span>
+                    <span class="card-text">Early Detection</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <div class="container">
+        <div class="section-header">
+            <h2>Why Choose SkinCare AI?</h2>
+            <p>Professional-grade technology designed for accurate and reliable skin analysis</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>Advanced AI Technology</h3>
+                <p>Powered by state-of-the-art machine learning algorithms trained on extensive medical datasets.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Instant Results</h3>
+                <p>Get analysis results in seconds with our optimized processing pipeline.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>High Accuracy</h3>
+                <p>Professional-grade accuracy rates comparable to clinical standards.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Secure & Private</h3>
+                <p>Your data is encrypted and never stored permanently for your privacy.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Easy to Use</h3>
+                <p>Simple upload or camera capture - no technical expertise required.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📋</div>
+                <h3>Detailed Reports</h3>
+                <p>Comprehensive analysis with confidence scores and recommendations.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="how-it-works">
+    <div class="container">
+        <div class="section-header">
+            <h2>How It Works</h2>
+            <p>Simple three-step process to get your skin analysis</p>
+        </div>
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Upload Image</h3>
+                    <p>Take a photo or upload an image of the skin area you want to analyze.</p>
+                </div>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>AI Analysis</h3>
+                    <p>Our advanced AI processes the image using deep learning algorithms.</p>
+                </div>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Get Results</h3>
+                    <p>Receive instant analysis with confidence scores and recommendations.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Ready to Start Your Analysis?</h2>
+            <p>Join thousands of users who trust SkinCare AI for their skin health monitoring.</p>
+            <a href="{{ url_for('detection') }}" class="btn btn-primary btn-large">
+                Start Free Analysis
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

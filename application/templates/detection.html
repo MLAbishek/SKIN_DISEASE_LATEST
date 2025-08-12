@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% block title %}Skin Analysis - SkinCare AI{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/detection.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="detection-hero">
+    <div class="container">
+        <div class="detection-header">
+            <h1>🔬 Skin Analysis</h1>
+            <p>Upload an image or take a photo to analyze your skin using our advanced AI technology</p>
+        </div>
+    </div>
+</section>
+
+<section class="detection-main">
+    <div class="container">
+        <div class="detection-grid">
+            <div class="upload-section">
+                <div class="section-card">
+                    <h2>📁 Upload Image</h2>
+                    <div class="model-status" id="modelStatus">
+                        <span class="status-indicator" id="statusIndicator">●</span>
+                        <span id="statusText">Checking AI model status...</span>
+                    </div>
+                    <div class="upload-area" id="uploadArea">
+                        <input type="file" id="fileInput" accept="image/*" hidden>
+                        <div class="upload-content">
+                            <div class="upload-icon">📷</div>
+                            <p>Click to upload or drag and drop</p>
+                            <span>PNG, JPG, JPEG up to 10MB</span>
+                        </div>
+                    </div>
+                    <button id="uploadBtn" class="btn btn-primary">Choose File</button>
+                </div>
+            </div>
+
+            <div class="divider">
+                <span>OR</span>
+            </div>
+
+            <div class="camera-section">
+                <div class="section-card">
+                    <h2>📸 Take Photo</h2>
+                    <div class="camera-status" id="cameraStatus">
+                        <span class="status-indicator" id="cameraStatusIndicator">●</span>
+                        <span id="cameraStatusText">Camera ready</span>
+                    </div>
+                    <div class="camera-container">
+                        <video id="video" autoplay muted playsinline style="display: none;"></video>
+                        <canvas id="canvas" style="display: none;"></canvas>
+                        <div class="camera-overlay" id="cameraOverlay" style="display: none;">
+                            <div class="capture-frame">
+                                <div class="corner top-left"></div>
+                                <div class="corner top-right"></div>
+                                <div class="corner bottom-left"></div>
+                                <div class="corner bottom-right"></div>
+                            </div>
+                            <div class="capture-instructions">
+                                <p>Position the skin area within the frame</p>
+                                <p>Ensure good lighting for best results</p>
+                            </div>
+                        </div>
+                        <div class="camera-placeholder" id="cameraPlaceholder">
+                            <div class="placeholder-icon">📷</div>
+                            <p>Click "Start Camera" to begin</p>
+                        </div>
+                    </div>
+                    <div class="camera-controls">
+                        <button id="startCamera" class="btn btn-secondary">
+                            <span class="btn-icon">🎥</span>
+                            <span class="btn-text">Start Camera</span>
+                        </button>
+                        <button id="captureBtn" class="btn btn-primary" disabled>
+                            <span class="btn-icon">📸</span>
+                            <span class="btn-text">Capture Photo</span>
+                        </button>
+                        <button id="stopCamera" class="btn btn-secondary" disabled>
+                            <span class="btn-icon">⏹️</span>
+                            <span class="btn-text">Stop Camera</span>
+                        </button>
+                        <button id="retakeBtn" class="btn btn-outline" style="display: none;">
+                            <span class="btn-icon">🔄</span>
+                            <span class="btn-text">Retake Photo</span>
+                        </button>
+                        <button id="retryCameraBtn" class="btn btn-secondary" style="display: none;">
+                            <span class="btn-icon">🔄</span>
+                            <span class="btn-text">Retry Camera</span>
+                        </button>
+                    </div>
+                    <div class="camera-tips">
+                        <h4>📝 Tips for Best Results:</h4>
+                        <ul>
+                            <li>Ensure good lighting (natural light preferred)</li>
+                            <li>Keep the camera steady and close to the skin</li>
+                            <li>Focus on the specific area of concern</li>
+                            <li>Avoid shadows and reflections</li>
+                        </ul>
+                        <div class="camera-troubleshooting">
+                            <h5>🔧 Camera Not Working?</h5>
+                            <ul>
+                                <li>Allow camera permissions when prompted</li>
+                                <li>Close other apps using the camera</li>
+                                <li>Try refreshing the page</li>
+                                <li>Use a different browser if issues persist</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="preview-section" id="previewSection" style="display: none;">
+            <div class="section-card">
+                <h2>🖼️ Preview</h2>
+                <div class="image-preview">
+                    <img id="previewImage" alt="Preview">
+                </div>
+                <button id="analyzeBtn" class="btn btn-success">Analyze Image</button>
+            </div>
+        </div>
+
+        <div class="results-section" id="resultsSection" style="display: none;">
+            <div class="section-card">
+                <h2>📊 Analysis Results</h2>
+                <div class="result-card">
+                    <div class="result-content">
+                        <div class="diagnosis" id="diagnosis"></div>
+                        <div class="confidence" id="confidence"></div>
+                        <div class="recommendations">
+                            <h3>Recommendations</h3>
+                            <ul>
+                                <li>Schedule a consultation with a dermatologist for professional evaluation</li>
+                                <li>Monitor the area for any changes in size, shape, or color</li>
+                                <li>Protect your skin from UV radiation with sunscreen</li>
+                                <li>Maintain regular skin health checkups</li>
+                            </ul>
+                        </div>
+                        <div class="disclaimer">
+                            ⚠️ <strong>Medical Disclaimer:</strong> This is an AI-based analysis and should not replace
+                            professional medical advice. Please consult a dermatologist for proper diagnosis and
+                            treatment.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="loading" id="loading" style="display: none;">
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <p>Analyzing image with AI...</p>
+                <span>Processing your skin image</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="info-section">
+    <div class="container">
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>📋 What We Analyze</h3>
+                <ul>
+                    <li>Skin lesions and moles</li>
+                    <li>Irregular borders and shapes</li>
+                    <li>Color variations and asymmetry</li>
+                    <li>Size and diameter changes</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h3>🔒 Privacy & Security</h3>
+                <ul>
+                    <li>Images are processed securely</li>
+                    <li>No permanent storage of your data</li>
+                    <li>Encrypted transmission</li>
+                    <li>HIPAA-compliant practices</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h3>⚡ Quick & Accurate</h3>
+                <ul>
+                    <li>Results in under 30 seconds</li>
+                    <li>High accuracy rates</li>
+                    <li>Professional-grade AI</li>
+                    <li>Continuous model improvements</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/detection.js') }}"></script>
+{% endblock %}

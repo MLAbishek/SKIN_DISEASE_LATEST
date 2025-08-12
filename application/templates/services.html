@@ -1,0 +1,383 @@
+{% extends "base.html" %}
+
+{% block title %}Services & Pricing - SkinCare AI{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/services.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="services-hero">
+    <div class="container">
+        <div class="services-header">
+            <h1>🔬 Our Services</h1>
+            <p>Advanced AI-powered skin analysis solutions for early detection and prevention</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">99.2%</span>
+                    <span class="stat-label">Accuracy Rate</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">10K+</span>
+                    <span class="stat-label">Analyses Completed</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">30s</span>
+                    <span class="stat-label">Average Response</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="services-main">
+    <div class="container">
+        <div class="section-header">
+            <h2>Core Services</h2>
+            <p>Comprehensive skin health solutions powered by cutting-edge AI technology</p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card featured">
+                <div class="service-icon">🔬</div>
+                <div class="service-badge">Most Popular</div>
+                <h3>AI Skin Cancer Detection</h3>
+                <p>Our flagship service uses advanced deep learning algorithms to analyze skin lesions and moles for
+                    potential cancer indicators with exceptional accuracy.</p>
+                <ul class="service-features">
+                    <li>✅ 99.2% accuracy rate</li>
+                    <li>✅ Instant analysis results</li>
+                    <li>✅ Detailed diagnostic reports</li>
+                    <li>✅ Professional recommendations</li>
+                    <li>✅ HIPAA-compliant processing</li>
+                </ul>
+                <div class="service-cta">
+                    <a href="{{ url_for('detection') }}" class="btn btn-primary">Try Free Analysis</a>
+                    <span class="service-note">No registration required</span>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <div class="service-badge coming-soon">Coming Soon</div>
+                <h3>Advanced Mole Analysis</h3>
+                <p>Comprehensive analysis using the ABCDE criteria (Asymmetry, Border, Color, Diameter, Evolution) for
+                    detailed mole assessment.</p>
+                <ul class="service-features">
+                    <li>🔍 ABCDE criteria evaluation</li>
+                    <li>📏 Precise size measurement</li>
+                    <li>🎨 Color variation analysis</li>
+                    <li>📈 Change tracking over time</li>
+                    <li>📋 Detailed risk assessment</li>
+                </ul>
+                <div class="service-cta">
+                    <span class="btn btn-disabled">Coming Q1 2024</span>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🔄</div>
+                <div class="service-badge coming-soon">Coming Soon</div>
+                <h3>Progress Tracking & Monitoring</h3>
+                <p>Monitor changes in skin conditions over time with our advanced tracking and comparison tools for
+                    long-term health management.</p>
+                <ul class="service-features">
+                    <li>📊 Historical comparison</li>
+                    <li>🚨 Change detection alerts</li>
+                    <li>📈 Progress visualization</li>
+                    <li>📅 Trend analysis</li>
+                    <li>📱 Mobile notifications</li>
+                </ul>
+                <div class="service-cta">
+                    <span class="btn btn-disabled">Coming Q2 2024</span>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📱</div>
+                <div class="service-badge coming-soon">Coming Soon</div>
+                <h3>Mobile Application</h3>
+                <p>Access our AI analysis anywhere with our native mobile application for iOS and Android devices with
+                    offline capabilities.</p>
+                <ul class="service-features">
+                    <li>📸 High-quality camera integration</li>
+                    <li>⚡ Offline analysis capability</li>
+                    <li>🔔 Smart push notifications</li>
+                    <li>☁️ Secure cloud synchronization</li>
+                    <li>🔒 Biometric authentication</li>
+                </ul>
+                <div class="service-cta">
+                    <span class="btn btn-disabled">Coming Q3 2024</span>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🏥</div>
+                <div class="service-badge coming-soon">Coming Soon</div>
+                <h3>Healthcare Provider Integration</h3>
+                <p>Seamless integration with healthcare systems for professional use, patient management, and clinical
+                    workflows.</p>
+                <ul class="service-features">
+                    <li>💻 EHR system integration</li>
+                    <li>👥 Patient management portal</li>
+                    <li>📦 Bulk analysis processing</li>
+                    <li>📊 Professional analytics dashboard</li>
+                    <li>🔐 Role-based access control</li>
+                </ul>
+                <div class="service-cta">
+                    <span class="btn btn-disabled">Coming Q4 2024</span>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">⚙️</div>
+                <div class="service-badge available">Available</div>
+                <h3>Custom Enterprise Solutions</h3>
+                <p>Tailored AI solutions for healthcare organizations, research institutions, and specialized clinics
+                    with custom requirements.</p>
+                <ul class="service-features">
+                    <li>🎯 Custom model training</li>
+                    <li>🔌 Full API access</li>
+                    <li>🏷️ White-label options</li>
+                    <li>👨‍💼 Dedicated support team</li>
+                    <li>📋 Custom reporting</li>
+                </ul>
+                <div class="service-cta">
+                    <a href="{{ url_for('contact') }}" class="btn btn-secondary">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="pricing-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>💳 Pricing Plans</h2>
+            <p>Choose the plan that best fits your needs and budget</p>
+        </div>
+
+        <div class="pricing-toggle">
+            <span>Monthly</span>
+            <label class="switch" for="billing-toggle" aria-label="Toggle between monthly and annual billing">
+                <input type="checkbox" id="billing-toggle" aria-describedby="billing-description">
+                <span class="slider"></span>
+            </label>
+            <span>Annual <span class="discount">Save 20%</span></span>
+            <span id="billing-description" class="sr-only">Toggle between monthly and annual billing plans</span>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h3>Free</h3>
+                    <div class="price">
+                        <span class="currency">$</span>
+                        <span class="amount">0</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <p>Perfect for occasional use and testing</p>
+                </div>
+                <ul class="pricing-features">
+                    <li>✅ 5 analyses per month</li>
+                    <li>✅ Basic skin cancer detection</li>
+                    <li>✅ Standard response time</li>
+                    <li>✅ Community support</li>
+                    <li>✅ Basic reports</li>
+                    <li>❌ Progress tracking</li>
+                    <li>❌ Priority processing</li>
+                </ul>
+                <div class="pricing-cta">
+                    <a href="{{ url_for('detection') }}" class="btn btn-outline">Get Started Free</a>
+                    <span class="pricing-note">No credit card required</span>
+                </div>
+            </div>
+
+            <div class="pricing-card featured">
+                <div class="pricing-badge">Most Popular</div>
+                <div class="pricing-header">
+                    <h3>Pro</h3>
+                    <div class="price">
+                        <span class="currency">$</span>
+                        <span class="amount">9.99</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <p>For regular monitoring and advanced features</p>
+                </div>
+                <ul class="pricing-features">
+                    <li>✅ Unlimited analyses</li>
+                    <li>✅ Advanced detection features</li>
+                    <li>✅ Priority processing</li>
+                    <li>✅ Progress tracking</li>
+                    <li>✅ Detailed reports</li>
+                    <li>✅ Email support</li>
+                    <li>✅ Export capabilities</li>
+                </ul>
+                <div class="pricing-cta">
+                    <a href="#" class="btn btn-primary">Start Pro Trial</a>
+                    <span class="pricing-note">7-day free trial</span>
+                </div>
+            </div>
+
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h3>Enterprise</h3>
+                    <div class="price">
+                        <span class="amount">Custom</span>
+                    </div>
+                    <p>For healthcare organizations and clinics</p>
+                </div>
+                <ul class="pricing-features">
+                    <li>✅ All Pro features</li>
+                    <li>✅ Custom integrations</li>
+                    <li>✅ Dedicated support</li>
+                    <li>✅ Training & consultation</li>
+                    <li>✅ SLA guarantees</li>
+                    <li>✅ Custom reporting</li>
+                    <li>✅ API access</li>
+                </ul>
+                <div class="pricing-cta">
+                    <a href="{{ url_for('contact') }}" class="btn btn-outline">Contact Sales</a>
+                    <span class="pricing-note">Custom pricing</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features-comparison">
+    <div class="container">
+        <div class="section-header">
+            <h2>📊 Feature Comparison</h2>
+            <p>Detailed comparison of what's included in each plan</p>
+        </div>
+
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Free</th>
+                        <th>Pro</th>
+                        <th>Enterprise</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Monthly Analyses</td>
+                        <td>5</td>
+                        <td>Unlimited</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td>Response Time</td>
+                        <td>Standard (30s)</td>
+                        <td>Priority (15s)</td>
+                        <td>Ultra-fast (5s)</td>
+                    </tr>
+                    <tr>
+                        <td>Progress Tracking</td>
+                        <td>❌</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                    </tr>
+                    <tr>
+                        <td>Detailed Reports</td>
+                        <td>Basic</td>
+                        <td>Advanced</td>
+                        <td>Custom</td>
+                    </tr>
+                    <tr>
+                        <td>API Access</td>
+                        <td>❌</td>
+                        <td>❌</td>
+                        <td>✅</td>
+                    </tr>
+                    <tr>
+                        <td>Support</td>
+                        <td>Community</td>
+                        <td>Email</td>
+                        <td>Dedicated</td>
+                    </tr>
+                    <tr>
+                        <td>Export Options</td>
+                        <td>❌</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                    </tr>
+                    <tr>
+                        <td>SLA Guarantee</td>
+                        <td>❌</td>
+                        <td>❌</td>
+                        <td>✅</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section class="faq-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>❓ Frequently Asked Questions</h2>
+            <p>Common questions about our services and pricing</p>
+        </div>
+
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h4>How accurate is the AI detection?</h4>
+                <p>Our AI model achieves 99.2% accuracy in skin cancer detection, validated through extensive testing
+                    with medical professionals.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>Can I cancel my subscription anytime?</h4>
+                <p>Yes, you can cancel your Pro subscription at any time. You'll continue to have access until the end
+                    of your billing period.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>Is my data secure?</h4>
+                <p>Absolutely. We use HIPAA-compliant security measures and don't store your images permanently. All
+                    data is encrypted in transit and at rest.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>Do you offer refunds?</h4>
+                <p>We offer a 30-day money-back guarantee for Pro subscriptions. If you're not satisfied, contact our
+                    support team for a full refund.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>Can I upgrade or downgrade my plan?</h4>
+                <p>Yes, you can change your plan at any time. Upgrades take effect immediately, while downgrades apply
+                    at the next billing cycle.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>What payment methods do you accept?</h4>
+                <p>We accept all major credit cards, PayPal, and bank transfers for Enterprise plans. All payments are
+                    processed securely through Stripe.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Ready to Get Started?</h2>
+            <p>Join thousands of users who trust our AI for their skin health monitoring</p>
+            <div class="cta-buttons">
+                <a href="{{ url_for('detection') }}" class="btn btn-primary">Try Free Analysis</a>
+                <a href="{{ url_for('contact') }}" class="btn btn-outline">Contact Sales</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/services.js') }}"></script>
+{% endblock %}
