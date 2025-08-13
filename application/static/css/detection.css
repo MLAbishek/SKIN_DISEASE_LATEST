@@ -32,6 +32,10 @@
     color: #ffaa00;
 }
 
+.status-indicator.warning {
+    color: #ffaa00;
+}
+
 @keyframes pulse {
 
     0%,

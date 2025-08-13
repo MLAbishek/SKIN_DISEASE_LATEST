@@ -37,13 +37,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Test camera support
     function testCameraSupport() {
+        console.log('Testing camera support...');
+        console.log('navigator.mediaDevices:', navigator.mediaDevices);
+        console.log('getUserMedia available:', !!navigator.mediaDevices?.getUserMedia);
+        console.log('Protocol:', window.location.protocol);
+        console.log('Host:', window.location.host);
+
+        // Check if we're on HTTPS or localhost (required for camera access)
+        const isSecure = window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+        if (!isSecure) {
+            console.error('Camera requires HTTPS or localhost');
+            updateCameraStatus('Camera requires HTTPS connection', 'error');
+            startCameraBtn.disabled = true;
+            startCameraBtn.textContent = 'HTTPS Required';
+            return;
+        }
+
         if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            console.error('Camera not supported in this browser');
             updateCameraStatus('Camera not supported in this browser', 'error');
             startCameraBtn.disabled = true;
             startCameraBtn.textContent = 'Camera Not Supported';
             return;
         }
+
+        // Don't test permissions immediately - just check if API is available
         updateCameraStatus('Camera ready - Click to start', 'ready');
+        startCameraBtn.disabled = false;
+        startCameraBtn.textContent = 'Start Camera';
     }
 
     // Model status check function
@@ -150,22 +172,60 @@ document.addEventListener('DOMContentLoaded', function () {
         reader.readAsDataURL(file);
     }
 
-    // Simple Camera functions
+    // Camera functions
     async function startCamera() {
         try {
+            console.log('Starting camera...');
             updateCameraStatus('Starting camera...', 'loading');
 
-            // Simple constraints that work on most devices
-            const constraints = {
-                video: {
-                    width: { ideal: 640, min: 320 },
-                    height: { ideal: 480, min: 240 },
-                    facingMode: 'environment' // Use back camera on mobile
+            // Stop any existing stream
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                stream = null;
+            }
+
+            // Try different constraint sets
+            const constraintSets = [
+                {
+                    video: {
+                        width: { ideal: 640, min: 320 },
+                        height: { ideal: 480, min: 240 },
+                        facingMode: 'environment'
+                    }
+                },
+                {
+                    video: {
+                        width: { ideal: 640 },
+                        height: { ideal: 480 }
+                    }
+                },
+                {
+                    video: true
                 }
-            };
+            ];
 
-            stream = await navigator.mediaDevices.getUserMedia(constraints);
+            let cameraStarted = false;
+            let lastError = null;
 
+            for (const constraints of constraintSets) {
+                try {
+                    console.log('Trying constraints:', constraints);
+                    stream = await navigator.mediaDevices.getUserMedia(constraints);
+                    cameraStarted = true;
+                    console.log('Camera started with constraints:', constraints);
+                    break;
+                } catch (error) {
+                    console.log('Failed with constraints:', constraints, error);
+                    lastError = error;
+                    continue;
+                }
+            }
+
+            if (!cameraStarted) {
+                throw lastError;
+            }
+
+            // Set up video element
             video.srcObject = stream;
             video.style.display = 'block';
             cameraPlaceholder.style.display = 'none';
@@ -173,17 +233,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Wait for video to be ready
             video.onloadedmetadata = () => {
+                console.log('Video metadata loaded');
                 startCameraBtn.disabled = true;
                 captureBtn.disabled = false;
                 stopCameraBtn.disabled = false;
                 retakeBtn.style.display = 'none';
                 retryCameraBtn.style.display = 'none';
                 updateCameraStatus('Camera ready - Click capture', 'ready');
-                showNotification('Camera started!', 'success');
+                showNotification('Camera started successfully!', 'success');
+            };
+
+            video.onerror = (error) => {
+                console.error('Video error:', error);
+                updateCameraStatus('Video error occurred', 'error');
             };
 
         } catch (error) {
-            console.error('Camera error:', error);
+            console.error('Camera start error:', error);
             updateCameraStatus('Camera failed to start', 'error');
 
             let message = 'Camera access denied. Please allow camera permissions.';
@@ -193,36 +259,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 message = 'Camera is in use by another application.';
             } else if (error.name === 'NotAllowedError') {
                 message = 'Camera permission denied. Please allow camera access in your browser settings.';
+            } else if (error.name === 'OverconstrainedError') {
+                message = 'Camera constraints not supported. Trying fallback...';
+            } else if (error.name === 'NotSupportedError') {
+                message = 'Camera not supported in this browser. Please use file upload instead.';
             }
 
             showNotification(message, 'error');
             retryCameraBtn.style.display = 'inline-flex';
             startCameraBtn.disabled = false;
 
-            // Try simpler constraints as fallback
-            try {
-                console.log('Trying fallback camera constraints...');
-                const fallbackConstraints = { video: true };
-                stream = await navigator.mediaDevices.getUserMedia(fallbackConstraints);
-
-                video.srcObject = stream;
-                video.style.display = 'block';
-                cameraPlaceholder.style.display = 'none';
-                cameraOverlay.style.display = 'block';
-
-                video.onloadedmetadata = () => {
-                    startCameraBtn.disabled = true;
-                    captureBtn.disabled = false;
-                    stopCameraBtn.disabled = false;
-                    retakeBtn.style.display = 'none';
-                    retryCameraBtn.style.display = 'none';
-                    updateCameraStatus('Camera ready - Click capture', 'ready');
-                    showNotification('Camera started with fallback settings!', 'success');
-                };
-
-            } catch (fallbackError) {
-                console.error('Fallback camera also failed:', fallbackError);
-                showNotification('Camera cannot be accessed. Please use file upload instead.', 'error');
+            // If camera completely fails, suggest file upload
+            if (error.name === 'NotSupportedError' || error.name === 'NotFoundError') {
+                showNotification('Please use the file upload option instead', 'info');
             }
         }
     }

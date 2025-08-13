@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: skincare-ai
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn application.app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.16
+    plan: free

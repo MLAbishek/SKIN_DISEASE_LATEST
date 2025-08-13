@@ -6,13 +6,12 @@ import os
 from PIL import Image
 import io
 import base64
+import tensorflow as tf
 
 app = Flask(__name__)
 
-# Load the trained model (update path as needed)
-MODEL_PATH = (
-    r"E:\SCHOOL_STUDENTS_SKIN\application\balanced_cancer.h5"  # Update this path
-)
+# Load the trained model - use relative path for deployment
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "balanced_cancer.h5")
 model = None
 
 
@@ -20,109 +19,64 @@ def load_trained_model():
     global model
     try:
         if os.path.exists(MODEL_PATH):
-            print("Attempting to load model...")
-            import tensorflow as tf
+            print("Loading your original model...")
 
-            # Create a custom InputLayer class to handle the compatibility issue
-            class CustomInputLayer(tf.keras.layers.InputLayer):
-                def __init__(
-                    self,
-                    input_shape=None,
-                    batch_size=None,
-                    dtype=None,
-                    input_tensor=None,
-                    sparse=None,
-                    name=None,
-                    ragged=None,
-                    type_spec=None,
-                    **kwargs,
-                ):
-                    # Handle batch_shape parameter properly
-                    if "batch_shape" in kwargs:
-                        batch_shape = kwargs.pop("batch_shape")
-                        if batch_shape and len(batch_shape) > 1:
-                            # Convert batch_shape to input_shape (remove first dimension)
-                            input_shape = batch_shape[1:]
-                    super().__init__(
-                        input_shape=input_shape,
-                        batch_size=batch_size,
-                        dtype=dtype,
-                        input_tensor=input_tensor,
-                        sparse=sparse,
-                        name=name,
-                        ragged=ragged,
-                        type_spec=type_spec,
-                        **kwargs,
-                    )
+            # Try loading with suppress_warnings to handle compatibility issues
+            import warnings
 
-            # Method 1: Try with custom InputLayer
-            try:
-                model = tf.keras.models.load_model(
-                    MODEL_PATH,
-                    compile=False,
-                    custom_objects={"InputLayer": CustomInputLayer},
-                )
-                print("Model loaded successfully with custom InputLayer!")
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore")
 
-                # Compile the model
-                model.compile(
-                    optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
-                    loss="binary_crossentropy",
-                    metrics=["accuracy"],
-                )
-                print("Model compiled successfully!")
-
-            except Exception as e1:
-                print(f"Method 1 failed: {e1}")
-
-                # Method 2: Try loading weights only with the correct architecture
+                # Method 1: Try direct loading first
                 try:
-                    # Based on the model inspection, create the correct architecture
-                    model = tf.keras.Sequential(
-                        [
-                            tf.keras.layers.InputLayer(input_shape=(64, 64, 3)),
-                            tf.keras.layers.Conv2D(32, 3, activation="relu"),
-                            tf.keras.layers.BatchNormalization(),
-                            tf.keras.layers.Conv2D(32, 3, activation="relu"),
-                            tf.keras.layers.BatchNormalization(),
-                            tf.keras.layers.MaxPooling2D(),
-                            tf.keras.layers.Flatten(),
-                            tf.keras.layers.Dense(100, activation="relu"),
-                            tf.keras.layers.Dense(120, activation="relu"),
-                            tf.keras.layers.Dense(1, activation="sigmoid"),
-                        ]
-                    )
+                    model = load_model(MODEL_PATH, compile=False)
+                    print("Model loaded directly!")
+                except Exception as e1:
+                    print(f"Direct loading failed: {e1}")
 
-                    # Load weights
-                    model.load_weights(MODEL_PATH)
-                    model.compile(
-                        optimizer="adam",
-                        loss="binary_crossentropy",
-                        metrics=["accuracy"],
-                    )
-                    print("Model loaded successfully with weights only!")
+                    # Method 2: Try with custom objects for InputLayer
+                    class CustomInputLayer(tf.keras.layers.InputLayer):
+                        def __init__(self, **kwargs):
+                            # Handle batch_shape properly
+                            if "batch_shape" in kwargs:
+                                batch_shape = kwargs.pop("batch_shape")
+                                if batch_shape and len(batch_shape) > 1:
+                                    # Convert batch_shape to input_shape
+                                    kwargs["input_shape"] = batch_shape[1:]
+                            super().__init__(**kwargs)
 
-                except Exception as e2:
-                    print(f"Method 2 failed: {e2}")
-                    raise e2
+                    model = load_model(
+                        MODEL_PATH,
+                        compile=False,
+                        custom_objects={"InputLayer": CustomInputLayer},
+                    )
+                    print("Model loaded with custom InputLayer!")
+
+            # Recompile with the same settings as in your training
+            model.compile(
+                optimizer="adam", loss="binary_crossentropy", metrics=["accuracy"]
+            )
+
+            print("Your original model loaded successfully!")
+
         else:
             print(f"Model file not found at {MODEL_PATH}")
             raise FileNotFoundError(f"Model file not found at {MODEL_PATH}")
+
     except Exception as e:
-        print(f"All model loading methods failed: {e}")
-        print("Using mock model for testing...")
-        model = "mock_model"
+        print(f"Error loading model: {e}")
+        raise e
 
 
 def preprocess_image(image):
-    """Preprocess image for prediction"""
+    """Preprocess image for prediction - exactly as in your training"""
     # Resize to 64x64 as expected by model
     image = image.resize((64, 64))
     # Convert to array
     img_array = img_to_array(image)
     # Expand dimensions to match model input
     img_array = np.expand_dims(img_array, axis=0)
-    # Normalize pixel values
+    # Normalize pixel values (same as your training data)
     img_array = img_array / 255.0
     return img_array
 
@@ -161,13 +115,12 @@ def faq():
 def test_model():
     if model is None:
         return jsonify({"status": "error", "message": "Model not loaded"})
-    elif model == "mock_model":
-        return jsonify(
-            {"status": "success", "message": "Mock model is loaded for testing"}
-        )
     else:
         return jsonify(
-            {"status": "success", "message": "AI Model loaded and ready for analysis"}
+            {
+                "status": "success",
+                "message": "Your original AI model loaded and ready for analysis",
+            }
         )
 
 
@@ -176,28 +129,7 @@ def predict():
     try:
         if model is None:
             return jsonify(
-                {
-                    "error": "Model not loaded. Please restart the application and check the console for model loading errors."
-                }
-            )
-
-        # Handle mock model for testing
-        if model == "mock_model":
-            import random
-
-            # Simulate prediction with random result
-            result = random.random()
-            if result < 0.3:
-                diagnosis = "Potential skin issue detected"
-            else:
-                diagnosis = "Normal skin"
-
-            return jsonify(
-                {
-                    "diagnosis": diagnosis,
-                    "prediction_value": float(result),
-                    "note": "This is a mock prediction for testing purposes",
-                }
+                {"error": "Model not loaded. Please restart the application."}
             )
 
         # Check if image is from camera (base64) or file upload
@@ -218,18 +150,18 @@ def predict():
         else:
             return jsonify({"error": "No image provided"})
 
-        # Preprocess image
+        # Preprocess image exactly as in your training
         processed_image = preprocess_image(image)
 
-        # Make prediction
+        # Make prediction using your original model
         prediction = model.predict(processed_image)
         result = prediction[0][0]
 
-        # Interpret result based on model output
-        # Sigmoid output: 0 = issue, 1 = normal
-        if result < 0.5:  # Closer to 0 indicates potential issue
+        # Interpret result exactly as in your training code
+        # Your model: 0 = cancer, 1 = not cancer
+        if result < 0.5:  # Sigmoid output: closer to 0 = cancer, closer to 1 = normal
             diagnosis = "Potential skin issue detected"
-        else:  # Closer to 1 indicates normal skin
+        else:
             diagnosis = "Normal skin"
 
         return jsonify(
@@ -257,16 +189,16 @@ def upload_file():
         if file.filename == "":
             return jsonify({"error": "No file selected"})
 
-        # Process uploaded image
+        # Process uploaded image exactly as in your training
         image = Image.open(file.stream).convert("RGB")
         processed_image = preprocess_image(image)
 
-        # Make prediction
+        # Make prediction using your original model
         prediction = model.predict(processed_image)
         result = prediction[0][0]
 
-        # Interpret result
-        if result < 0.5:
+        # Interpret result exactly as in your training code
+        if result < 0.5:  # Sigmoid output: closer to 0 = cancer, closer to 1 = normal
             diagnosis = "Potential skin issue detected"
         else:
             diagnosis = "Normal skin"
@@ -286,4 +218,6 @@ def upload_file():
 if __name__ == "__main__":
     # Load model on startup
     load_trained_model()
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    # Use environment variables for production
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=False, host="0.0.0.0", port=port)
